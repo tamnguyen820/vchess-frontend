@@ -11,7 +11,7 @@
 
 <script>
 import socket from "../socket/socket";
-import { mapGetters } from "vuex";
+import { mapGetters, mapMutations } from "vuex";
 
 export default {
   emits: ["found"],
@@ -23,11 +23,11 @@ export default {
   props: {},
   computed: {
     ...mapGetters({
-      color: "game/getPlayerColor",
+      playerColor: "game/getPlayerColor",
     }),
   },
   watch: {
-    color(newValue) {
+    playerColor(newValue) {
       if (newValue !== "") {
         this.finding = false;
         this.$emit("found");
@@ -35,7 +35,13 @@ export default {
     },
   },
   methods: {
+    ...mapMutations({
+      setPlayerColor: "game/setPlayerColor",
+      setRoomId: "game/setRoomId",
+    }),
     async findGame() {
+      this.setPlayerColor("");
+      this.setRoomId("");
       if (!this.finding) {
         this.finding = true;
         socket.connect();

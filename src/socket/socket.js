@@ -19,7 +19,12 @@ socket.on(EVENTS.joinedRoom, ({ roomId, color }) => {
   store.commit("game/setPlayerColor", color);
 });
 
+// So goofy
 socket.on(EVENTS.SERVER.seeMove, ({ move }) => {
+  const reviewLength = store.getters["game/isInReview"];
+  if (reviewLength) {
+    store.commit("game/goForward", reviewLength);
+  }
   store.commit("game/pushMove", move);
 });
 
