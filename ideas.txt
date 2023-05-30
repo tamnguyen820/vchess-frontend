@@ -1,5 +1,6 @@
 Current:
-- Interagate backend
+- Integrate backend
+- Create room and invite using link
 
 
 Long time:

@@ -183,6 +183,9 @@ export default {
       window.addEventListener("resize", this.onResize);
     });
     this.resizeBoard(window.outerWidth, window.outerHeight);
+    if (this.playerColor === "b") {
+      this.setFlipBoard();
+    }
   },
   beforeUnmount() {
     window.removeEventListener("resize", this.onResize);
@@ -228,6 +231,7 @@ export default {
       getTurn: "game/getTurn",
       getLastMove: "game/getLastMove",
       isInReview: "game/isInReview",
+      playerColor: "game/getPlayerColor",
 
       getEngineSuggestions: "engine/getEngineSuggestions",
       suggestionsOn: "analysisSettings/getSuggestionsOn",
@@ -304,13 +308,15 @@ export default {
 
     legalMoves() {
       const moves = {};
-      for (let move of this.getLegalMoves) {
-        const from = move.from;
-        const to = move.to;
-        if (moves[from]) {
-          moves[from].push(to);
-        } else {
-          moves[from] = [to];
+      if (this.getTurn === this.playerColor) {
+        for (let move of this.getLegalMoves) {
+          const from = move.from;
+          const to = move.to;
+          if (moves[from]) {
+            moves[from].push(to);
+          } else {
+            moves[from] = [to];
+          }
         }
       }
       return moves;
@@ -349,6 +355,7 @@ export default {
   methods: {
     ...mapMutations({
       setBoardSize: "settings/setBoardSize",
+      setFlipBoard: "settings/setFlipBoard",
 
       pushMove: "game/pushMove",
     }),
@@ -501,6 +508,7 @@ export default {
     },
 
     validateMove(from, to) {
+      if (this.getTurn !== this.playerColor) return false;
       const moves = this.getLegalMoves;
       const move = moves.find(
         (element) =>

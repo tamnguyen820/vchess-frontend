@@ -51,7 +51,6 @@ export default {
         .login({ email: this.email, password: this.password })
         .then((res) => {
           if (res.status === 200) {
-            console.log(res);
             this.setAuthenticated(true);
             router.push({ name: "home" });
           }

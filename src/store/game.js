@@ -4,10 +4,6 @@ import playSound from "../scripts/sounds.js";
 
 const pieceValues = { p: 1, n: 3, b: 3, r: 5, q: 9, k: 0 };
 
-function abc(state) {
-  console.log(state);
-}
-
 async function sleep(ms) {
   return new Promise((r) => setTimeout(r, ms));
 }
@@ -78,22 +74,20 @@ export const game = {
         { side: "b", name: "Black" },
         { side: "w", name: "White" },
       ],
+      playerColor: "",
+      roomId: "",
     };
   },
 
   mutations: {
-    set_def(state, payload) {
-      abc(state);
-    },
-
     updateGame(state) {
-      state.fen = state.chessGame.fen();
       state.board = state.chessGame.board();
       state.turn = state.chessGame.turn();
       state.legalMoves = state.chessGame.moves({ verbose: true });
       state.gameOver = state.chessGame.isGameOver();
       state.history = state.chessGame.history({ verbose: true });
       state.shortHistory = state.chessGame.history();
+      state.fen = state.chessGame.fen();
     },
 
     createNewGame(state) {
@@ -144,6 +138,13 @@ export const game = {
 
     setPlayersInfo(state, players) {
       state.playersInfo = players;
+    },
+
+    setPlayerColor(state, color) {
+      state.playerColor = color;
+    },
+    setRoomId(state, roomId) {
+      state.roomId = roomId;
     },
 
     loadFEN(state, fen) {
@@ -225,9 +226,6 @@ export const game = {
   },
 
   getters: {
-    ABC(state) {
-      return abc(state);
-    },
     getFen(state) {
       return state.fen;
     },
@@ -305,6 +303,12 @@ export const game = {
 
     getPlayersInfo(state) {
       return state.playersInfo;
+    },
+    getPlayerColor(state) {
+      return state.playerColor;
+    },
+    getRoomId(state) {
+      return state.roomId;
     },
   },
 };

@@ -5,6 +5,7 @@ import SignIn from "../views/SignIn.vue";
 import LogIn from "../views/LogIn.vue";
 import SignUp from "../views/SignUp.vue";
 import Analysis from "../views/Analysis.vue";
+import Play from "../views/Play.vue";
 import ChessGame from "../components/ChessGame.vue";
 import { store } from "../store/store";
 
@@ -30,10 +31,7 @@ const router = createRouter({
     {
       path: "/play",
       name: "play",
-      component: ChessGame,
-      meta: {
-        requiresAuth: true,
-      },
+      component: Play,
     },
     {
       path: "/puzzles",

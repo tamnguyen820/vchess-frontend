@@ -24,7 +24,7 @@
           <li>
             <router-link :to="{ name: 'profile' }">Profile</router-link>
           </li>
-          <li class="gray">
+          <li>
             <router-link :to="{ name: 'play' }">Play</router-link>
           </li>
           <li class="gray">
