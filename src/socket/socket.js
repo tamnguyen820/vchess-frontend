@@ -25,6 +25,7 @@ socket.on(EVENTS.SERVER.seeMove, ({ move }) => {
 
 export default {
   connect() {
+    socket.disconnect();
     socket.connect();
   },
   disconnect() {

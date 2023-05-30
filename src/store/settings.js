@@ -10,36 +10,36 @@ export const settings = {
       showCoords: true,
       soundOn: true,
       flipBoard: false,
-    }
+    };
   },
 
   mutations: {
     setBoardTheme(state, theme) {
-      state.boardTheme = theme
+      state.boardTheme = theme;
     },
     setBoardSize(state, size) {
-      state.boardSize = size
+      state.boardSize = size;
     },
     setPieceTheme(state, theme) {
-      state.pieceTheme = theme
+      state.pieceTheme = theme;
     },
     setShowLegal(state, show) {
-      state.showLegal = show
+      state.showLegal = show;
     },
     setShowCoords(state, show) {
-      state.showCoords = show
+      state.showCoords = show;
     },
     setSoundOn(state, on) {
-      state.soundOn = on
+      state.soundOn = on;
     },
     setFlipBoard(state) {
-      state.flipBoard = !state.flipBoard
-    }
+      state.flipBoard = !state.flipBoard;
+    },
   },
 
   getters: {
     getBoardTheme(state) {
-      return state.boardTheme.substring(0, state.boardTheme.indexOf("."))
+      return state.boardTheme.substring(0, state.boardTheme.indexOf("."));
     },
     getBoardUrl(state) {
       const srcURL = "assets/images/board/";
@@ -50,22 +50,22 @@ export const settings = {
       return imageURL;
     },
     getBoardSize(state) {
-      return state.boardSize
+      return state.boardSize;
     },
     getPieceTheme(state) {
-      return state.pieceTheme
+      return state.pieceTheme;
     },
     showLegalMoves(state) {
-      return state.showLegal
+      return state.showLegal;
     },
     showCoordinates(state) {
-      return state.showCoords
+      return state.showCoords;
     },
     getSoundOn(state) {
-      return state.soundOn
+      return state.soundOn;
     },
     getFlipBoard(state) {
-      return state.flipBoard
-    }
-  }
-}
+      return state.flipBoard;
+    },
+  },
+};

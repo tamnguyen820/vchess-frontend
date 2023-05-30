@@ -181,11 +181,14 @@ export default {
   mounted() {
     this.$nextTick(() => {
       window.addEventListener("resize", this.onResize);
+      if (
+        (this.playerColor === "b" && !this.flipBoard) ||
+        (this.playerColor === "w" && this.flipBoard)
+      ) {
+        this.setFlipBoard();
+      }
     });
     this.resizeBoard(window.outerWidth, window.outerHeight);
-    if (this.playerColor === "b") {
-      this.setFlipBoard();
-    }
   },
   beforeUnmount() {
     window.removeEventListener("resize", this.onResize);

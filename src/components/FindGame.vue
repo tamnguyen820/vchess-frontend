@@ -36,9 +36,14 @@ export default {
   },
   methods: {
     async findGame() {
-      this.finding = true;
-      socket.connect();
-      socket.joinQueue();
+      if (!this.finding) {
+        this.finding = true;
+        socket.connect();
+        socket.joinQueue();
+      } else {
+        this.finding = false;
+        socket.disconnect();
+      }
     },
   },
 };
