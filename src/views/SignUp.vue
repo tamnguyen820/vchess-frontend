@@ -33,7 +33,7 @@
 
 <script>
 import { router } from "../router/router.js";
-import vchessClient from "../api/VchessClient";
+import vchessClient from "../api/vchessClient.js";
 
 export default {
   data() {

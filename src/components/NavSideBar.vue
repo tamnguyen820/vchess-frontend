@@ -50,7 +50,7 @@
 <script>
 import { mapGetters, mapMutations } from "vuex";
 import { router } from "../router/router.js";
-import vchessClient from "../api/VchessClient";
+import vchessClient from "../api/vchessClient.js";
 
 export default {
   computed: {
