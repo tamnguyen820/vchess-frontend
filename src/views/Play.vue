@@ -4,8 +4,6 @@
 </template>
 
 <script>
-// wacth fen, if change then check turn
-// if not your turn, emit move
 import { mapGetters } from "vuex";
 import socket from "../socket/socket";
 

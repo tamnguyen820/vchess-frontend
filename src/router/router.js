@@ -2,6 +2,7 @@ import { createWebHistory, createRouter } from "vue-router";
 
 import Home from "../views/Home.vue";
 import SignIn from "../views/SignIn.vue";
+import Profile from "../views/Profile.vue";
 import LogIn from "../views/LogIn.vue";
 import SignUp from "../views/SignUp.vue";
 import Analysis from "../views/Analysis.vue";
@@ -19,15 +20,20 @@ const router = createRouter({
       alias: "/",
     },
     {
-      path: "/log-in",
+      path: "/profile",
       name: "profile",
-      component: LogIn,
+      component: Profile,
     },
-    {
-      path: "/sign-up",
-      name: "sign-up",
-      component: SignUp,
-    },
+    // {
+    //   path: "/log-in",
+    //   name: "profile",
+    //   component: LogIn,
+    // },
+    // {
+    //   path: "/sign-up",
+    //   name: "sign-up",
+    //   component: SignUp,
+    // },
     {
       path: "/play",
       name: "play",
