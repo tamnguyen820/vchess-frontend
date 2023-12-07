@@ -179,6 +179,7 @@ export default {
     this.createBoardModel();
   },
   mounted() {
+    if (this.analysisMode) this.setPlayerColor("w");
     this.$nextTick(() => {
       window.addEventListener("resize", this.onResize);
       if (
@@ -201,7 +202,7 @@ export default {
       type: String,
       default: () => uniqueId(),
     },
-    showSuggestions: {
+    analysisMode: {
       type: Boolean,
       default: false,
     },
@@ -311,7 +312,7 @@ export default {
 
     legalMoves() {
       const moves = {};
-      if (this.getTurn === this.playerColor) {
+      if (this.getTurn === this.playerColor || this.analysisMode) {
         for (let move of this.getLegalMoves) {
           const from = move.from;
           const to = move.to;
@@ -335,7 +336,7 @@ export default {
     },
 
     suggestionArrows() {
-      if (!this.showSuggestions || !this.suggestionsOn) {
+      if (!this.analysisMode || !this.suggestionsOn) {
         return [];
       }
       const arr = [];
@@ -361,6 +362,7 @@ export default {
       setFlipBoard: "settings/setFlipBoard",
 
       pushMove: "game/pushMove",
+      setPlayerColor: "game/setPlayerColor",
     }),
     handleClick(event, square) {
       // Overall
@@ -511,7 +513,7 @@ export default {
     },
 
     validateMove(from, to) {
-      if (this.getTurn !== this.playerColor) return false;
+      if (!this.analysisMode && this.getTurn !== this.playerColor) return false;
       const moves = this.getLegalMoves;
       const move = moves.find(
         (element) =>

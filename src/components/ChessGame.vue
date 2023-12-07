@@ -5,7 +5,7 @@
         <EvaluationBar v-if="analysisMode" />
       </template>
       <template v-slot:board>
-        <Board :showSuggestions="analysisMode" />
+        <Board :analysisMode="analysisMode" />
       </template>
       <template v-slot:sideBar>
         <GameSidebar :analysisMode="analysisMode" />

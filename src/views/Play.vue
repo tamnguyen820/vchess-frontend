@@ -17,7 +17,6 @@ export default {
   },
   computed: {
     ...mapGetters({
-      color: "game/getPlayerColor",
       fen: "game/getFen",
       turn: "game/getTurn",
       playerColor: "game/getPlayerColor",

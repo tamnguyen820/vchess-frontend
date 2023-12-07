@@ -3,6 +3,7 @@ export const auth = {
   state() {
     return {
       authenticated: false,
+      user: null,
     };
   },
 
@@ -10,11 +11,17 @@ export const auth = {
     setAuthenticated(state, auth) {
       state.authenticated = auth;
     },
+    setUser(state, user) {
+      state.user = user;
+    },
   },
 
   getters: {
     isAuthenticated(state) {
       return state.authenticated;
+    },
+    getUser(state) {
+      return state.user;
     },
   },
 };

@@ -27,7 +27,7 @@
           <li>
             <router-link :to="{ name: 'play' }">Play</router-link>
           </li>
-          <li class="gray">
+          <li>
             <router-link :to="{ name: 'puzzles' }">Puzzles</router-link>
           </li>
           <li>

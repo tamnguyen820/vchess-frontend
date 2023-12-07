@@ -19,21 +19,21 @@ const router = createRouter({
       component: Home,
       alias: "/",
     },
-    {
-      path: "/profile",
-      name: "profile",
-      component: Profile,
-    },
     // {
-    //   path: "/log-in",
+    //   path: "/profile",
     //   name: "profile",
-    //   component: LogIn,
+    //   component: Profile,
     // },
-    // {
-    //   path: "/sign-up",
-    //   name: "sign-up",
-    //   component: SignUp,
-    // },
+    {
+      path: "/log-in",
+      name: "profile",
+      component: LogIn,
+    },
+    {
+      path: "/sign-up",
+      name: "sign-up",
+      component: SignUp,
+    },
     {
       path: "/play",
       name: "play",
@@ -43,9 +43,6 @@ const router = createRouter({
       path: "/puzzles",
       name: "puzzles",
       component: ChessGame,
-      meta: {
-        requiresAuth: true,
-      },
     },
     {
       path: "/analysis",

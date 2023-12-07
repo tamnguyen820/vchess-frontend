@@ -45,6 +45,7 @@ export default {
   methods: {
     ...mapMutations({
       setAuthenticated: "auth/setAuthenticated",
+      setUser: "auth/setUser",
     }),
     login() {
       vchessClient
@@ -52,6 +53,7 @@ export default {
         .then((res) => {
           if (res.status === 200) {
             this.setAuthenticated(true);
+            this.setUser(res.data);
             router.push({ name: "home" });
           }
         })

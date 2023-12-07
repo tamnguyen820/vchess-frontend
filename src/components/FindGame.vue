@@ -1,6 +1,7 @@
 <template>
   <div class="container">
-    <header>Find match</header>
+    <header>Quick match</header>
+    <div class="play-text">Play anonymously against other players</div>
 
     <button class="start" @click="findGame">
       <span v-if="!finding">Start</span>
@@ -66,9 +67,12 @@ export default {
   align-items: center;
   header {
     padding-top: 4rem;
-    padding-bottom: 10rem;
+    padding-bottom: 9rem;
     font-size: 2.25rem;
     font-weight: bold;
+  }
+  .play-text {
+    padding: 1rem;
   }
   .start {
     cursor: pointer;
