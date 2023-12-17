@@ -25,7 +25,7 @@ socket.on(EVENTS.SERVER.seeMove, ({ move }) => {
   if (reviewLength) {
     store.commit("game/goForward", reviewLength);
   }
-  store.commit("game/pushMove", move);
+  store.commit("game/pushMove", { move, sound: true });
 });
 
 export default {

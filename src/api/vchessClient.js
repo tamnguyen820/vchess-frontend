@@ -6,6 +6,7 @@ const vchessBase = axios.create({
 });
 
 export default {
+  // Auth
   register(payload) {
     return vchessBase.post("/auth/register", payload);
   },
@@ -14,5 +15,13 @@ export default {
   },
   logout() {
     return vchessBase.post("/auth/logout");
+  },
+
+  // Puzzles
+  getRandomPuzzle() {
+    return vchessBase.get("/puzzles/random");
+  },
+  getPuzzleById(PuzzleId) {
+    return vchessBase.get(`/puzzles/${PuzzleId}`);
   },
 };

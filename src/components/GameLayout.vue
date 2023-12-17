@@ -1,15 +1,19 @@
 <template>
   <div class="wrapper">
     <div class="main-area">
-      <div class="eval-area">
+      <div v-if="$slots.infoPanel" class="info-area">
+        <slot name="infoPanel" />
+      </div>
+
+      <div v-if="$slots.evalBar" class="eval-area">
         <slot name="evalBar" />
       </div>
-      <div class="board">
+      <div v-if="$slots.board" class="board">
         <slot name="board" />
       </div>
-    </div>
-    <div class="side-bar">
-      <slot name="sideBar" />
+      <div v-if="$slots.sideBar" class="side-bar">
+        <slot name="sideBar" />
+      </div>
     </div>
   </div>
 </template>
@@ -28,31 +32,35 @@ export default {};
   width: 100%;
 
   .main-area {
-    // margin-top: auto;
-    // margin-bottom: auto;
-    margin-right: 20px;
     display: flex;
-    .eval-area {
-      margin-right: 20px;
-    }
+    flex-direction: row;
+    gap: 20px;
   }
   .side-bar {
-    height: 95%;
-    min-width: 220px;
+    // min-width: 250px;
     width: 30%;
+    // max-width: 70vw;
+  }
+  @media (min-width: 100rem) {
+    .side-bar {
+      min-width: 400px;
+    }
   }
   @media (max-width: 50rem) {
     margin-block: 20%;
-    flex-direction: column;
     .main-area {
-      margin-right: 0;
-      .eval-area {
-        margin-right: 10px;
-      }
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .eval-area {
+      flex: 1 0 5%;
+    }
+    .board {
+      flex: 1 0 90%;
     }
     .side-bar {
-      margin-top: 20px;
-      width: 60%;
+      margin: auto !important;
+      flex: 1 0 70%;
     }
   }
 }

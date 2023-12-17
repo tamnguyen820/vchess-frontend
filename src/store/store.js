@@ -6,6 +6,7 @@ import { game } from "./game.js";
 import { engine } from "./engine.js";
 import { analysisSettings } from "./analysisSettings.js";
 import { auth } from "./auth.js";
+import { puzzle } from "./puzzle.js";
 
 export const store = createStore({
   modules: {
@@ -14,6 +15,7 @@ export const store = createStore({
     engine,
     analysisSettings,
     auth,
+    puzzle,
   },
   plugins: [
     createPersistedState({

@@ -195,7 +195,7 @@ $white-color: white;
   width: var(--bar-width);
   background-color: $black-color;
   overflow: hidden;
-  border-radius: 3px;
+  border-radius: 5px;
   // outline: 0.5px solid $white-color;
   position: relative;
   display: flex;

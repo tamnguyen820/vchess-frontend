@@ -206,6 +206,10 @@ export default {
       type: Boolean,
       default: false,
     },
+    puzzleMode: {
+      type: Boolean,
+      default: false,
+    },
   },
   data() {
     return {
@@ -236,6 +240,7 @@ export default {
       getLastMove: "game/getLastMove",
       isInReview: "game/isInReview",
       playerColor: "game/getPlayerColor",
+      getClearHighlights: "game/getClearHighlights",
 
       getEngineSuggestions: "engine/getEngineSuggestions",
       suggestionsOn: "analysisSettings/getSuggestionsOn",
@@ -363,6 +368,8 @@ export default {
 
       pushMove: "game/pushMove",
       setPlayerColor: "game/setPlayerColor",
+
+      setLastPlayerMove: "puzzle/setLastPlayerMove",
     }),
     handleClick(event, square) {
       // Overall
@@ -531,7 +538,10 @@ export default {
       if (promotion) {
         move["promotion"] = promotion;
       }
-      this.pushMove(move);
+      this.pushMove({ move, sound: true });
+      if (this.puzzleMode) {
+        this.setLastPlayerMove(move);
+      }
       this.clearManualHighlights();
       this.clearArrows();
       if (this.promotionSquare) {
@@ -676,6 +686,17 @@ export default {
           optionsDisplay.focus();
         }
       });
+    },
+    getClearHighlights(newValue) {
+      if (newValue) {
+        this.dragEnterSquare = null;
+        this.startSquare = null;
+        this.promotionSquare = null;
+        this.manualHighlights = {};
+        this.arrows = [];
+        this.arrowFrom = "";
+        this.arrowFromKeyboard = "";
+      }
     },
   },
 };

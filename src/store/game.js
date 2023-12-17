@@ -76,6 +76,7 @@ export const game = {
       ],
       playerColor: "",
       roomId: "",
+      clearHighlightsFlag: false,
     };
   },
 
@@ -108,10 +109,9 @@ export const game = {
 
     async loadPGN(state, pgn) {
       this.commit("game/createNewGame");
-      state.pgnLoaded = state.chessGame.load_pgn(pgn);
-      if (!state.pgnLoaded) {
-        this.commit("game/createNewGame");
-      } else {
+      try {
+        state.chessGame.loadPgn(pgn);
+        state.pgnLoaded = true;
         this.commit("game/updateGame");
         state.lastMove = state.history[state.history.length - 1];
         for (var i = 0; i < state.history.length; i++) {
@@ -132,6 +132,11 @@ export const game = {
           players[1].name = info.White;
         }
         this.commit("game/setPlayersInfo", players);
+      } catch (e) {
+        state.pgnLoaded = false;
+        console.log("Load PGN failed!");
+        console.log(e);
+        this.commit("game/createNewGame");
       }
       state.fenLoaded = false;
     },
@@ -149,31 +154,35 @@ export const game = {
 
     loadFEN(state, fen) {
       this.commit("game/createNewGame");
-      state.fenLoaded = state.chessGame.load(fen);
-      if (!state.fenLoaded) {
-        this.commit("game/createNewGame");
-      } else {
+      try {
+        state.chessGame.load(fen);
+        state.fenLoaded = true;
         this.commit("game/updateGame");
         state.openingInfo = { eco: "", name: "Custom Position" };
+      } catch (e) {
+        state.fenLoaded = false;
+        console.log("Load FEN failed!");
+        console.log(e);
+        this.commit("game/createNewGame");
       }
       state.pgnLoaded = false;
     },
 
-    async pushMove(state, move) {
+    async pushMove(state, { move, sound }) {
       // Make move
       state.lastMove = state.chessGame.move(move);
 
       // Play sound and update info
       if (state.lastMove.captured) {
-        playSound("capture");
+        if (sound) playSound("capture");
         state.capture[state.lastMove.color][state.lastMove.captured]++;
       } else {
-        playSound("move");
+        if (sound) playSound("move");
       }
       this.commit("game/updateGame");
       if (state.gameOver) {
         await sleep(500);
-        playSound("click");
+        if (sound) playSound("click");
         state.legalMoves = [];
       }
 
@@ -191,7 +200,7 @@ export const game = {
       while (!state.gameOver) {
         const moves = state.legalMoves;
         const move = moves[Math.floor(Math.random() * moves.length)];
-        this.commit("game/pushMove", move);
+        this.commit("game/pushMove", { move, sound: false });
         await sleep(500);
       }
     },
@@ -215,13 +224,24 @@ export const game = {
       for (var i = 0; i < times; i++) {
         const move = state.reviewStack.pop();
         if (move) {
-          this.commit("game/pushMove", move);
+          this.commit("game/pushMove", { move, sound: false });
         } else {
           state.tempShortHistory = [];
           break;
         }
       }
       this.commit("game/updateGame");
+    },
+    undoMove(state) {
+      const move = state.chessGame.undo();
+      if (move) {
+        this.commit("game/updateGame");
+        state.lastMove = state.history[state.history.length - 1];
+      }
+    },
+
+    setClearHighlightsFlag(state, val) {
+      state.clearHighlightsFlag = val;
     },
   },
 
@@ -309,6 +329,9 @@ export const game = {
     },
     getRoomId(state) {
       return state.roomId;
+    },
+    getClearHighlights(state) {
+      return state.clearHighlightsFlag;
     },
   },
 };

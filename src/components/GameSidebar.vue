@@ -1,5 +1,5 @@
 <template>
-  <div class="side-bar">
+  <div class="game-side-bar" :id="`game-side-bar-${id}`">
     <div class="header-area">
       <div class="side-button-container">
         <button
@@ -110,6 +110,7 @@
 </template>
 
 <script>
+import { uniqueId } from "lodash";
 import { mapGetters, mapMutations } from "vuex";
 import AnalysisModal from "../components/AnalysisModal.vue";
 import ImportModal from "../components/ImportModal.vue";
@@ -122,10 +123,19 @@ export default {
   created() {
     this.setHighlight(this.lastMoveIndex);
   },
+  mounted() {
+    this.$nextTick(() => {
+      this.setBarHeight(this.boardSize);
+    });
+  },
   props: {
     analysisMode: {
       type: Boolean,
       default: false,
+    },
+    id: {
+      type: String,
+      default: () => uniqueId(),
     },
   },
   data() {
@@ -148,6 +158,7 @@ export default {
       getMaterialAdvantage: "game/getMaterialAdvantage",
       isInReview: "game/isInReview",
       flipBoard: "settings/getFlipBoard",
+      boardSize: "settings/getBoardSize",
 
       getEngineOn: "analysisSettings/getEngineOn",
 
@@ -192,6 +203,9 @@ export default {
     lastMoveIndex(newVal) {
       this.setHighlight(newVal);
     },
+    boardSize(newValue) {
+      this.setBarHeight(newValue);
+    },
   },
   methods: {
     ...mapMutations({
@@ -200,6 +214,10 @@ export default {
       goBack: "game/goBack",
       goForward: "game/goForward",
     }),
+    setBarHeight(height) {
+      const bar = document.getElementById("game-side-bar-" + this.id);
+      bar.style.setProperty("--bar-height", `${height}px`);
+    },
     reviewMove(turn, move) {
       const current = this.highlight;
       const turnDif = turn - current.turn;
@@ -257,11 +275,13 @@ $opening-color: #525150;
 $move-underline-color: #72a4d4;
 $move-second-background: #f8f8f8;
 
-.side-bar {
-  height: 100%;
-  width: 25vw;
+.game-side-bar {
+  --bar-height: 800px;
+
+  height: var(--bar-height);
+  max-height: 100vh;
   min-height: 500px;
-  min-width: 300px;
+  min-width: 250px;
   background-color: $background-color;
   display: flex;
   flex-direction: column;
@@ -298,7 +318,8 @@ $move-second-background: #f8f8f8;
         top: calc(0.25 * $avatar-size);
       }
       .import {
-        top: calc(1.05 * $avatar-size);
+        padding-top: 5px;
+        top: calc(1 * $avatar-size);
       }
     }
     .flip-board {
@@ -457,7 +478,7 @@ $move-second-background: #f8f8f8;
       border-radius: 5px;
       background-color: var(--button-color);
       border-style: none;
-      box-shadow: 3px 1px var(--button-shadow-color);
+      box-shadow: 3px 3px var(--button-shadow-color);
       cursor: pointer;
       .arrow-icon {
         margin: auto;
@@ -471,8 +492,9 @@ $move-second-background: #f8f8f8;
 }
 
 @media (max-width: 50rem) {
-  .side-bar {
-    max-height: 500px;
+  .game-side-bar {
+    height: 90vh;
+    width: 80vw;
   }
 }
 </style>

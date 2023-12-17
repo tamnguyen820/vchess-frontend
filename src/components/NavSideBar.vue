@@ -28,7 +28,7 @@
             <router-link :to="{ name: 'play' }">Play</router-link>
           </li>
           <li>
-            <router-link :to="{ name: 'puzzles' }">Puzzles</router-link>
+            <router-link :to="{ name: 'training' }">Training</router-link>
           </li>
           <li>
             <router-link :to="{ name: 'analysis' }">Analysis</router-link>
