@@ -38,10 +38,14 @@ export const settings = {
   },
 
   getters: {
-    getBoardTheme(state) {
-      return state.boardTheme.substring(0, state.boardTheme.indexOf("."));
+    getBoardThemeValue(state) {
+      return state.boardTheme;
     },
-    getBoardUrl(state) {
+    getBoardTheme(state) {
+      const boardTheme = state.boardTheme;
+      return boardTheme.substring(0, boardTheme.indexOf("."));
+    },
+    getBoardUrl(state, getters) {
       const srcURL = "assets/images/board/";
       const theme = state.boardTheme;
       const extension = theme.substr(theme.length - 4);

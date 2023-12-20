@@ -33,7 +33,7 @@
           <li>
             <router-link :to="{ name: 'analysis' }">Analysis</router-link>
           </li>
-          <li class="gray">
+          <li>
             <router-link :to="{ name: 'settings' }">Settings</router-link>
           </li>
         </div>

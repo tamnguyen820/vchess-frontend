@@ -11,6 +11,7 @@ import Play from "../views/Play.vue";
 import ChessGame from "../components/ChessGame.vue";
 import Training from "../views/Training.vue";
 import RandomPuzzles from "../views/RandomPuzzles.vue";
+import Settings from "../views/Settings.vue";
 import { store } from "../store/store";
 
 const router = createRouter({
@@ -60,11 +61,16 @@ const router = createRouter({
     {
       path: "/settings",
       name: "settings",
-      component: ChessGame,
-      meta: {
-        requiresAuth: true,
-      },
+      component: Settings,
     },
+    // {
+    //   path: "/settings",
+    //   name: "settings",
+    //   component: ChessGame,
+    //   meta: {
+    //     requiresAuth: true,
+    //   },
+    // },
     { path: "/:pathMatch(.*)*", name: "not-found", component: NotFound },
   ],
 });
