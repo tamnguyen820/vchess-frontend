@@ -1,3 +1,5 @@
+import playSound from "../scripts/sounds.js";
+
 export const settings = {
   namespaced: true,
 
@@ -30,7 +32,9 @@ export const settings = {
       state.showCoords = show;
     },
     setSoundOn(state, on) {
+      const prevSoundOn = state.soundOn;
       state.soundOn = on;
+      if (!prevSoundOn && on) playSound("move");
     },
     setFlipBoard(state) {
       state.flipBoard = !state.flipBoard;

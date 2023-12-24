@@ -1,3 +1,5 @@
+import { store } from "../store/store"
+
 const audioSrc = "assets/sounds/"
 const audios = {}
 const audioMapping = {
@@ -12,6 +14,8 @@ for (const name in audioMapping) {
 }
 
 export default function playSound(name) {
-  const audio = audios[name]
-  audio.play()
+  if (store.getters["settings/getSoundOn"]) {
+    const audio = audios[name]
+    audio.play()
+  }
 }
